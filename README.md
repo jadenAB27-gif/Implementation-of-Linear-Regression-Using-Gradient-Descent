@@ -8,47 +8,55 @@ To write a program to predict the profit of a city using the linear regression m
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. Import the required libraries and initialize the population and profit data.
-2. Initialize the slope, intercept, learning rate and number of iterations.
-3. Calculate the predicted values and update the slope and intercept using Gradient Descent.
+1. Import the required libraries and load the 50_Startups.csv dataset.
+2. Extract R&D Spend as the independent variable (X) and Profit as the dependent variable (Y).
+3. Initialize the slope, intercept and learning rate, then calculate and update them using Gradient Descent.
 4. Predict the profit and plot the actual data points with the regression line.
 
 ## Program:
 ```
-Program to implement the linear regression using gradient descent.
-Developed by: Jaden Samuel Abraham
-RegisterNumber: 212225040138
-
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
-X=np.array([6,8,10,12,14,16,18,20])
-Y=np.array([17,20,25,28,30,35,40,45])
+
+data=pd.read_csv('50_Startups.csv')
+X=data['R&D Spend'].values
+Y=data['Profit'].values
+
+X=(X-X.mean())/X.std()
+Y=(Y-Y.mean())/Y.std()
+
 m=0
 b=0
-lr=0.001
+lr=0.01
 n=len(X)
+
 for i in range(1000):
     Y_pred=m*X+b
     dm=(-2/n)*np.sum(X*(Y-Y_pred))
     db=(-2/n)*np.sum(Y-Y_pred)
     m=m-lr*dm
     b=b-lr*db
+
+Y_pred=m*X+b
+
 print("Slope:",m)
 print("Intercept:",b)
-Y_pred=m*X+b
+
 plt.scatter(X,Y,color='blue')
 plt.plot(X,Y_pred,color='red')
-plt.xlabel("Population")
+plt.xlabel("R&D Spend")
 plt.ylabel("Profit")
 plt.title("Linear Regression using Gradient Descent")
-plt.show() 
+plt.show()
 
 ```
 
 ## Output:
 
-<img width="1748" height="520" alt="image" src="https://github.com/user-attachments/assets/f97a3634-de3a-4eb8-843a-dd509f18c5b2" />
-<img width="872" height="602" alt="image" src="https://github.com/user-attachments/assets/0335137d-d9af-40c4-aca0-20dec6fc8446" />
+<img width="1172" height="740" alt="image" src="https://github.com/user-attachments/assets/c2288dd4-3179-4cbe-a782-be1b32cf3783" />
+<img width="1162" height="597" alt="image" src="https://github.com/user-attachments/assets/96bb3b74-7ba6-48a3-baf2-797b18354a06" />
+
 
 ## Result:
 Thus the program to implement the linear regression using gradient descent is written and verified using python programming.
